@@ -41,6 +41,16 @@ namespace WPFUtils
  
         }
 
+        public static void SaveSettingLocal<T>(string settingsFile, T u)
+        {
+            
+                using (StreamWriter sw = new StreamWriter(settingsFile, false))
+                {
+                    XmlSerializer xs = new XmlSerializer(typeof(T));
+                    xs.Serialize(sw, u);
+                }
+        }
+
         public static T LoadSetting<T>(string settingsDirectoryName, string settingsFile)
         {
             string settingsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
@@ -66,14 +76,7 @@ namespace WPFUtils
             return u;
         }
 
-        public static void SaveSettingLocal<T>(string settingsFile, T u)
-        {
-            using (StreamWriter sw = new StreamWriter(settingsFile, false))
-            {
-                XmlSerializer xs = new XmlSerializer(typeof(T));
-                xs.Serialize(sw, u);
-            }
-        }
+       
 
         public static T LoadSettingLocal<T>(string settingsFile)
         {
